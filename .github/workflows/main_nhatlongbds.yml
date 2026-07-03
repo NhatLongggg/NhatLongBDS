@@ -7,35 +7,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest
+  deploy:
+  runs-on: windows-latest
+  needs: build
 
-    permissions:
-      contents: read
+  steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: .net-app
 
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+    - name: Deploy using MSDeploy
+      shell: powershell
+      run: |
+        choco install webdeploy -y
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.x'
-
-      - name: Restore
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Publish
-        run: dotnet publish --configuration Release --output ./publish
-
-      - name: Deploy to MonsterASP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./publish/
-          server-dir: /wwwroot/
+        & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
+          -verb:sync `
+          -source:contentPath="${{ github.workspace }}" `
+          -dest:contentPath="${{ secrets.WEBDEPLOY_SITE }}",computerName="https://${{ secrets.WEBDEPLOY_SERVER }}:8172/msdeploy.axd?site=${{ secrets.WEBDEPLOY_SITE }}",userName="${{ secrets.WEBDEPLOY_USERNAME }}",password="${{ secrets.WEBDEPLOY_PASSWORD }}",authType="Basic" `
+          -allowUntrusted
