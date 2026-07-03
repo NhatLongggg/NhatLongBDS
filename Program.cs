@@ -1,13 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using DKRSLandingPage_WebApp.Data;
 using DKRSLandingPage_WebApp.Services;
+using System.IO;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+var dbPath = builder.Environment.IsDevelopment()
+    ? Path.Combine(builder.Environment.ContentRootPath, "nhatlongrealestate.db")
+    : Path.Combine(builder.Environment.ContentRootPath, "App_Data", "nhatlongrealestate.db");
+
+Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite(
-        builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlite($"Data Source={dbPath}");
 });
 
 builder.Services.AddScoped<ImageUploadService>();
@@ -17,12 +24,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DbInitializer.Seed(db);
-} // Configure the HTTP request pipeline.
 
+using(var scope=app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+
+    db.Database.Migrate();
+
+    DbInitializer.Seed(db);
+}
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler(
