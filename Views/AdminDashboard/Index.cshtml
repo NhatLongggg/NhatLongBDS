@@ -1,0 +1,141 @@
+@model List<DKRSLandingPage_WebApp.Models.CustomerLead>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Dashboard
+            </h1>
+
+            <p class="page-subtitle">
+                Tổng quan hệ thống quản trị
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-stat">
+
+            <div>
+
+                <div class="stat-icon bg-primary">
+
+                    <i class="bi bi-buildings"></i>
+
+                </div>
+
+                <h2>@ViewBag.ProjectCount</h2>
+
+                <p>Tổng dự án</p>
+
+            </div>
+
+            <a asp-controller="AdminProject"
+               asp-action="Index"
+               class="btn btn-primary">
+
+                Xem
+
+            </a>
+
+        </div>
+
+        <div class="dashboard-stat">
+
+            <div>
+
+                <div class="stat-icon bg-success">
+
+                    <i class="bi bi-people"></i>
+
+                </div>
+
+                <h2>@ViewBag.CustomerCount</h2>
+
+                <p>Khách hàng</p>
+
+            </div>
+
+            <a asp-controller="AdminCustomerLead"
+               asp-action="Index"
+               class="btn btn-success">
+
+                Xem
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="admin-card">
+
+        <div class="page-header">
+
+            <h4>Khách hàng mới nhất</h4>
+
+        </div>
+
+        <table class="admin-table">
+
+            <thead>
+
+            <tr>
+
+                <th>Họ tên</th>
+
+                <th>Số điện thoại</th>
+
+                <th>Ngày gửi</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            @if (Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.FullName</td>
+
+                        <td>@item.Phone</td>
+
+                        <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+
+                    <td colspan="3" class="text-center py-4">
+
+                        Chưa có khách hàng nào.
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

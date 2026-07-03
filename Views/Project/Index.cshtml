@@ -1,0 +1,53 @@
+﻿@model List<Project>
+
+<div class="container py-5">
+
+    <h1 class="mb-4">
+        Dự Án Đang Phân Phối
+    </h1>
+
+    <div class="row">
+
+        @foreach (var project in Model)
+        {
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow">
+
+                    <img src="@project.Thumbnail"
+                         class="card-img-top">
+
+                    <div class="card-body">
+
+                        <h5>
+                            @project.Name
+                        </h5>
+
+                        <p>
+                            @project.Location
+                        </p>
+
+                        <p>
+                            Giá từ:
+                            @project.PriceFrom.ToString("N0") VNĐ
+                        </p>
+
+                        <a asp-controller="Project"
+                           asp-action="Detail"
+                           asp-route-slug="@project.Slug"
+                           class="btn btn-primary">
+
+                            Xem Chi Tiết
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,23 @@
+# Build
+bin/
+obj/
+
+# Rider
+.idea/
+
+# Visual Studio
+.vs/
+
+# User files
+*.user
+*.suo
+
+# macOS
+.DS_Store
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+appsettings.Development.json

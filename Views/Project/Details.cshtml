@@ -1,0 +1,333 @@
+﻿@model Project
+@using DKRSLandingPage_WebApp.ViewModels
+
+<!-- HERO -->
+<section class="project-hero"
+         style="background-image:url('@Model.Thumbnail')">
+
+    <div class="hero-overlay">
+
+        <div class="container text-white">
+
+            <div class="hero-content">
+
+                <span class="project-badge">
+                    NHẤT LONG REAL ESTATE
+                </span>
+
+                <h1>
+                    @Model.Name
+                </h1>
+
+                <p>
+                    @Model.Location
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#contactForm"
+                       class="btn btn-warning btn-lg">
+
+                        Nhận bảng giá
+                    </a>
+
+                    <a href="https://zalo.me/YOUR_PHONE"
+                       target="_blank"
+                       class="btn btn-outline-light btn-lg">
+
+                        Tư vấn ngay
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- INFORMATION PROJECT -->
+<section class="project-facts">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="fact-card">
+
+                    <h5>Chủ đầu tư</h5>
+
+                    <h3>Lê Phong Group</h3>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="fact-card">
+
+                    <h5>Khu vực</h5>
+
+                    <h3>@Model.Location</h3>
+                    <!--  <div class="ratio ratio-16x9 mt-3">
+                        --
+                          <iframe
+                              src="https://www.google.com/maps?q=Thuận%20An%20Bình%20Dương&output=embed"
+                              allowfullscreen>
+  
+                          </iframe>
+                                                 
+                    </div>-->
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="fact-card">
+
+                    <h5>Giá từ</h5>
+
+                    <h3>
+                        @Model.PriceFrom.ToString("N0")
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- CONTENT -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- LEFT -->
+            <div class="">
+
+                <div class="card shadow border-0 p-4 mb-4 reveal">
+
+                    <h3>Tổng quan dự án</h3>
+                    <p>@Model.Description</p>
+
+                </div>
+
+                <div class="card shadow border-0 p-4 mb-4 reveal">
+
+                    <h3>Hình ảnh dự án</h3>
+
+                    <div class="gallery-grid">
+
+                        @foreach (var image in Model.Images)
+                        {
+                            <img src="@image.ImageUrl"
+                                 class="gallery-image">
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="card shadow border-0 p-4 reveal">
+
+                    <h3>Vị trí dự án</h3>
+
+                    <p class="text-muted">
+                        @Model.Location
+                    </p>
+
+                    <img src="@Model.LocationImage"
+                         class="img-fluid rounded shadow mt-3">
+
+                </div>
+
+            </div>
+
+            <div class="card shadow border-0 p-4 mb-4 reveal">
+
+                <h3>Tiện ích nổi bật</h3>
+
+                <div class="amenities-grid">
+
+                    @foreach (var facility in Model.Facilities)
+                    {
+                        <div class="amenity-item">
+                            @facility.Name
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <!-- CONTACT FORM -->
+            <div id="contactForm"
+                 class="card shadow-lg border-0 p-4 sticky-top">
+
+                <h3 class="mb-3">
+
+                    Nhận bảng giá mới nhất
+
+                </h3>
+
+                <p>
+
+                    Liên hệ trực tiếp với Nguyễn Nhất Long
+
+                </p>
+                <form id="leadForm"
+                      asp-controller="Lead"
+                      asp-action="Create"
+                      method="post">
+
+                    <input type="hidden"
+                           name="ProjectId"
+                           value="@Model.Id" />
+
+                    <input name="FullName"
+                           class="form-control mb-3"
+                           placeholder="Họ và tên"
+                           required>
+
+                    <input name="Phone"
+                           class="form-control mb-3"
+                           placeholder="Số điện thoại"
+                           required>
+
+                    <textarea name="Message"
+              class="form-control mb-3"
+              rows="4"
+              placeholder="Nhu cầu của bạn"></textarea>
+
+                    <div id="successAlert"
+                         class="lead-success-message"
+                         style="display:none;">
+
+                        <div class="success-icon">
+                            ✓
+                        </div>
+
+                        <div class="success-content">
+
+                            <h5>Gửi yêu cầu thành công!</h5>
+
+                            <p>
+                                Cảm ơn bạn đã quan tâm dự án.
+                                Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.
+                            </p>
+
+                        </div>
+
+                    </div>
+                    
+                    <button class="btn btn-warning w-100"
+                            type="submit">
+
+                        Gửi yêu cầu
+
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="advisor-section py-5">
+
+    <div class="container">
+
+        <div class="advisor-card">
+
+            <img src="/images/Avatar-Logo/avatar-long.jpg">
+
+            <h3>Nguyễn Nhất Long</h3>
+
+            <p>
+                Chuyên viên tư vấn bất động sản
+            </p>
+
+            <p>
+                Bình Dương • TP.HCM • Vũng Tàu
+            </p>
+
+            <a
+                href="https://zalo.me/0918335458"
+                target="_blank"
+                class="btn btn-success">
+
+                Liên hệ Zalo
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+
+const form = document.getElementById("leadForm");
+
+form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    const response = await fetch(form.action, {
+
+        method: "POST",
+
+        body: formData
+
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+
+        const success = document.getElementById("successAlert");
+
+        success.style.display = "flex";
+
+        form.reset();
+
+        setTimeout(function () {
+
+            success.style.transition = ".5s";
+
+            success.style.opacity = "0";
+
+            success.style.transform = "translateY(-15px)";
+
+            setTimeout(function () {
+
+                success.style.display = "none";
+
+                success.style.opacity = "1";
+
+                success.style.transform = "translateY(0)";
+
+            }, 500);
+
+        }, 5000);
+
+    }
+    else {
+
+        alert(result.message);
+
+    }
+
+});
+
+</script>

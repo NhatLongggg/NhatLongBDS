@@ -1,0 +1,226 @@
+@model DKRSLandingPage_WebApp.ViewModels.ProjectViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Chỉnh sửa dự án
+            </h1>
+
+            <p class="page-subtitle">
+                Cập nhật thông tin dự án
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="admin-card">
+
+        <form asp-action="Edit"
+              method="post"
+              enctype="multipart/form-data"
+              class="admin-form">
+
+            <input asp-for="Id" type="hidden"/>
+
+            <div>
+
+                <label asp-for="Name" class="form-label">
+                    Tên dự án
+                </label>
+
+                <input asp-for="Name"
+                       class="form-control"/>
+
+            </div>
+
+            <div>
+
+                <label asp-for="Slug" class="form-label">
+                    Slug
+                </label>
+
+                <input asp-for="Slug"
+                       class="form-control"/>
+
+            </div>
+
+            <div>
+
+                <label asp-for="ThumbnailFile"
+                       class="form-label">
+                    Thumbnail mới
+                </label>
+                
+                @if (!string.IsNullOrEmpty(Model.Thumbnail))
+                {
+                    <div class="image-preview">
+
+                        <img src="@Model.Thumbnail"
+                             class="edit-preview">
+
+                    </div>
+                }
+
+                <input asp-for="ThumbnailFile"
+                       type="file"
+                       class="form-control"/>
+
+                <small class="text-muted">
+
+                    Không chọn nếu muốn giữ ảnh hiện tại.
+
+                </small>
+
+            </div>
+
+            <div>
+
+                <label asp-for="Developer"
+                       class="form-label">
+
+                    Chủ đầu tư
+
+                </label>
+
+                <input asp-for="Developer"
+                       class="form-control"/>
+
+            </div>
+
+            <div>
+
+                <label asp-for="BannerFile"
+                       class="form-label">
+
+                    Banner mới
+
+                </label>
+                
+                @if (!string.IsNullOrEmpty(Model.BannerImage))
+                {
+                    <div class="image-preview">
+
+                        <img src="@Model.BannerImage"
+                             class="edit-preview">
+
+                    </div>
+                }
+
+                <input asp-for="BannerFile"
+                       type="file"
+                       class="form-control"/>
+
+                <small class="text-muted">
+
+                    Không chọn nếu muốn giữ ảnh hiện tại.
+
+                </small>
+
+            </div>
+
+            <div>
+
+                <label asp-for="Location"
+                       class="form-label">
+
+                    Khu vực
+
+                </label>
+                
+                @if (!string.IsNullOrEmpty(Model.LocationImage))
+                {
+                    <div class="image-preview">
+
+                        <img src="@Model.LocationImage"
+                             class="edit-preview">
+
+                    </div>
+                }
+
+                <input asp-for="Location"
+                       class="form-control"/>
+
+            </div>
+
+            <div>
+
+                <label asp-for="LocationImageFile"
+                       class="form-label">
+
+                    Ảnh vị trí mới
+
+                </label>
+
+                <input asp-for="LocationImageFile"
+                       type="file"
+                       class="form-control"/>
+
+                <small class="text-muted">
+
+                    Không chọn nếu muốn giữ ảnh hiện tại.
+
+                </small>
+
+            </div>
+
+            <div>
+
+                <label asp-for="PriceFrom"
+                       class="form-label">
+
+                    Giá từ
+
+                </label>
+
+                <input asp-for="PriceFrom"
+                       class="form-control"/>
+
+            </div>
+
+            <div>
+
+                <label asp-for="Description"
+                       class="form-label">
+
+                    Tổng quan dự án
+
+                </label>
+
+                <textarea asp-for="Description"
+                          rows="6"
+                          class="form-control"></textarea>
+
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Trở lại
+
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Cập nhật
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,209 @@
+﻿@model List<Project>
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+
+                Quản lý dự án
+
+            </h1>
+
+            <p class="page-subtitle">
+
+                Danh sách tất cả dự án trong hệ thống
+
+            </p>
+
+        </div>
+
+        <a asp-action="Create"
+           class="btn btn-success">
+
+            + Thêm dự án
+
+        </a>
+
+    </div>
+
+    <div class="admin-card">
+
+        <table class="admin-table">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Tên dự án</th>
+
+                <th>Khu vực</th>
+
+                <th>Ảnh vị trí</th>
+
+                <th>Giá từ</th>
+
+                <th width="320">Thao tác</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            @foreach (var project in Model)
+            {
+                <tr>
+
+                    <td>#@project.Id</td>
+
+                    <td>@project.Name</td>
+
+                    <td>@project.Location</td>
+
+                    <td>
+
+                        <img src="@project.LocationImage"
+                             class="table-image">
+
+                    </td>
+
+                    <td>
+
+                        @project.PriceFrom.ToString("N0") VNĐ
+
+                    </td>
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <a asp-action="Edit"
+                               asp-route-id="@project.Id"
+                               class="btn btn-warning btn-sm">
+
+                                Sửa
+
+                            </a>
+
+                            <a asp-controller="AdminProjectImage"
+                               asp-action="Index"
+                               asp-route-projectId="@project.Id"
+                               class="btn btn-info btn-sm">
+
+                                Ảnh
+
+                            </a>
+
+                            <a asp-controller="AdminProjectFacility"
+                               asp-action="Index"
+                               asp-route-projectId="@project.Id"
+                               class="btn btn-secondary btn-sm">
+
+                                Tiện ích
+
+                            </a>
+
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="showDeleteModal(@project.Id)">
+
+                                Xóa
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+    <div class="modal fade"
+         id="deleteModal"
+         tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Xác nhận xóa dự án
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    Bạn có chắc muốn xóa dự án này không?
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark-custom"
+                            data-bs-dismiss="modal">
+
+                        Hủy
+
+                    </button>
+
+                    <form id="deleteForm"
+                          method="post">
+
+                        <button type="submit"
+                                class="btn btn-delete-confirm">
+                            Xóa Dự Án
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+        
+    </div>
+
+@section Scripts{
+
+    <script>
+
+function showDeleteModal(id){
+
+    document.getElementById("deleteForm").action =
+        "/AdminProject/Delete/" + id;
+
+    const modal = new bootstrap.Modal(
+        document.getElementById("deleteModal")
+    );
+
+    modal.show();
+
+}
+
+</script>
+
+}

@@ -1,0 +1,198 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Project>
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <h1 class="reveal">
+                Nguyễn Nhất Long
+            </h1>
+
+            <p class="hero-subtitle reveal">
+                NHẤT LONG REAL ESTATE
+            </p>
+
+            <p class="reveal">
+                Chuyên tư vấn và phân phối bất động sản cao cấp
+                tại Bình Dương, TP.HCM và Vũng Tàu
+            </p>
+
+            <a href="#projects" class="btn btn-gold hero-btn">
+                Xem Dự Án
+            </a>
+        </div>
+
+    </div>
+
+</section>
+<section id="projects">
+
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+            Dự Án Nổi Bật
+        </h2>
+
+        <div class="row">
+
+            @foreach (var project in Model)
+            {
+                <div class="col-12 col-md-6 col-x-4 mb-4">
+
+                    <div class="card project-card h-100 border-0 shadow-lg">
+
+                        <img src="@project.Thumbnail"
+                             class="card-img-top"/>
+
+                        <div class="card-body">
+
+                            <h5>@project.Name</h5>
+
+                            <p class="project-location">
+                                @project.Location
+                            </p>
+
+                            <p class="project-price">
+                                Giá từ: @project.PriceFrom.ToString("N0") VNĐ
+                            </p>
+
+                            <a href="/du-an/@project.Slug"
+                               class="btn btn-project">
+                                Xem Chi Tiết
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<section id="about" class="about-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-4 text-center">
+
+                <img src="/images/Avatar-Logo/avatar-long.jpg"
+                     alt="Nguyễn Nhất Long"
+                     class="about-avatar">
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <span class="about-label">
+                    NHẤT LONG REAL ESTATE
+                </span>
+
+                <h2 class="about-title">
+                    Nguyễn Nhất Long
+                </h2>
+
+                <p class="about-desc">
+                    Chuyên viên tư vấn và phân phối bất động sản tại
+                    Bình Dương, TP.HCM và Vũng Tàu.
+                </p>
+
+                <div class="about-features">
+
+                    <p>✔ Tư vấn đầu tư bất động sản</p>
+
+                    <p>✔ Hỗ trợ pháp lý và hồ sơ giao dịch</p>
+
+                    <p>✔ Đồng hành từ tư vấn đến bàn giao</p>
+
+                    <p>✔ Phân phối nhiều dự án từ các chủ đầu tư uy tín</p>
+
+                </div>
+
+                <a href="https://zalo.me/0918335458"
+                   target="_blank"
+                   class="btn btn-gold mt-3">
+                    Liên Hệ Tư Vấn
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="areas" class="areas-section">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Khu Vực Phân Phối
+        </h2>
+
+        <div class="row">
+
+            <div class="col-lg-4 mb-4">
+
+                <div class="area-card area-bd">
+
+                    <div class="area-overlay">
+
+                        <h3>Bình Dương</h3>
+
+                        <p>Thành phố mới • Thuận An • Dĩ An</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 mb-4">
+
+                <div class="area-card area-hcm">
+
+                    <div class="area-overlay">
+
+                        <h3>TP.HCM</h3>
+
+                        <p>Thủ Đức • Quận 9 • Quận 2</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 mb-4">
+
+                <div class="area-card area-vt">
+
+                    <div class="area-overlay">
+
+                        <h3>Vũng Tàu</h3>
+
+                        <p>Biển • Nghỉ dưỡng • Đầu tư</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

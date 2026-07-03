@@ -1,0 +1,76 @@
+﻿@model DKRSLandingPage_WebApp.ViewModels.ProjectFacilityViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+                Thêm tiện ích
+            </h1>
+
+            <p class="page-subtitle">
+                Thêm tiện ích mới cho dự án
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="admin-card">
+
+        <h5 class="mb-4">
+
+            Thông tin tiện ích
+
+        </h5>
+
+        <form asp-action="Create"
+              method="post"
+              class="admin-form">
+
+            <input asp-for="ProjectId"
+                   type="hidden"/>
+
+            <div>
+
+                <label asp-for="Name"
+                       class="form-label">
+
+                    Tên tiện ích
+
+                </label>
+
+                <input asp-for="Name"
+                       class="form-control"/>
+
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+
+                <a asp-action="Index"
+                   asp-route-projectId="@Model.ProjectId"
+                   class="btn btn-secondary">
+
+                    Trở lại
+
+                </a>
+
+                <button class="btn btn-primary">
+
+                    Lưu tiện ích
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+    
+</div>
